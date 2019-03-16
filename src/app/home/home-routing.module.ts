@@ -3,10 +3,17 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardComponent } from 'app/home/dashboard/dashboard.component';
 import { HomeStates } from 'app/core/services/navigation.service';
+import { HomeComponent } from 'app/home/home.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: HomeStates.Dashboard, pathMatch: 'full' },
-  { path: HomeStates.Dashboard, component: DashboardComponent }
+  {
+    path: '',
+    component: HomeComponent,
+    children: [
+      { path: '', redirectTo: HomeStates.Dashboard },
+      { path: HomeStates.Dashboard, component: DashboardComponent }
+    ]
+  },
 ];
 
 @NgModule({

@@ -20,6 +20,9 @@ import { SharedModule } from 'app/shared/shared.module';
     CoreModule,
     SharedModule
   ],
+  exports: [
+    MaterialModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
