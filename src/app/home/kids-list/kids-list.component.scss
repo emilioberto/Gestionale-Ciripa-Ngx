@@ -1,0 +1,28 @@
+.container {
+  width: 90%;
+  margin: auto;
+  padding: 20px;
+}
+
+mat-icon {
+  font-size: 1rem;
+}
+
+.list-options {
+  text-align: center;
+  display: block;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+
+  .option {
+    display: inline-block;
+    padding: 1rem;
+  }
+}
+
+.pagato {
+  color: #66ff00;
+}
+.non-pagato {
+  color: red;
+}

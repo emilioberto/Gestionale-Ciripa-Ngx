@@ -1,13 +1,39 @@
 <mat-sidenav-container>
   <mat-sidenav mode="side" opened>
-    <div class="logo">
-      Ciripà logo
-    </div>
-    <mat-list>
-      <mat-list-item> Pepper </mat-list-item>
-      <mat-list-item> Salt </mat-list-item>
-      <mat-list-item> Paprika </mat-list-item>
-    </mat-list>
+    <mat-nav-list>
+      <h3>Ciripà</h3>
+      <mat-divider></mat-divider>
+      <!-- Anagrafiche -->
+      <a (click)="navigateToKidsList()">
+        <mat-list-item>
+          <button mat-icon-button>
+            <mat-icon>child_care</mat-icon>
+          </button>
+          <a matLine>Anagrafiche</a>
+        </mat-list-item>
+      </a>
+      <mat-divider></mat-divider>
+      <!-- Presenze -->
+      <a (click)="navigateToAttendance()">
+        <mat-list-item>
+          <button mat-icon-button>
+            <mat-icon>calendar_today</mat-icon>
+          </button>
+          <a matLine>Appello</a>
+        </mat-list-item>
+      </a>
+      <mat-divider></mat-divider>
+      <!-- Impostazioni -->
+      <a (click)="navigateToSettings()">
+        <mat-list-item>
+          <button mat-icon-button>
+            <mat-icon>settings</mat-icon>
+          </button>
+          <a matLine>Impostazioni</a>
+        </mat-list-item>
+      </a>
+      <mat-divider></mat-divider>
+    </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <router-outlet></router-outlet>

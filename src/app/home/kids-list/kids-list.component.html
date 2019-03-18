@@ -1,0 +1,77 @@
+<div class="container">
+  <h1 class="text-center">Anagrafiche</h1>
+
+  <div class="row list-options">
+    <div class="options-row">
+      <div class="option">
+        <input type="radio" name="listOptions" id="genitori" class="k-radio" [checked]="hiddenKid && !hiddenParent">
+        <label class="k-radio-label" for="genitori" (click)="hideBambinoColumn()">Genitori</label>
+      </div>
+      <div class="option">
+        <input type="radio" name="listOptions" id="bambini" class="k-radio" [checked]="!hiddenKid && hiddenParent">
+        <label class="k-radio-label" for="bambini" (click)="hideGenitoreColumn()">Bambini</label>
+      </div>
+      <div class="option">
+        <input type="radio" name="listOptions" id="tutti" class="k-radio" [checked]="!hiddenKid && !hiddenParent">
+        <label class="k-radio-label" for="tutti" (click)="restoreColumns()">Vedi tutti</label>
+      </div>
+    </div>
+  </div>
+
+  <kendo-grid [data]="gridView" [sortable]="'single'" [sort]="sort" (sortChange)="sortChange($event)"
+    [pageSize]="pageSize" [skip]="skip" [pageable]="true" (pageChange)="pageChange($event)">
+    <kendo-grid-messages pagerPage="Pagina" pagerOf="di" pagerItems="elementi" pagerItemsPerPage="elementi per pagina"
+      pagerFirstPage="Prima pagina" pagerLastPage="Ultima pagina" pagerPreviousPage="Precedente"
+      pagerNextPage="Successiva">
+    </kendo-grid-messages>
+    <kendo-grid-column-group title="Genitore" [locked]="false" [hidden]="hiddenParent && !hiddenKid">
+      <kendo-grid-column field="datiFatturazione.genitoreNome" title="Nome">
+      </kendo-grid-column>
+      <kendo-grid-column field="datiFatturazione.genitoreCognome" title="Cognome">
+      </kendo-grid-column>
+    </kendo-grid-column-group>
+    <kendo-grid-column-group title="Bambino" [locked]="false" [hidden]="!hiddenParent && hiddenKid">
+      <kendo-grid-column field="firstName" title="Nome">
+      </kendo-grid-column>
+      <kendo-grid-column field="lastName" title="Cognome">
+      </kendo-grid-column>
+      <kendo-grid-column field="birthDate" title="Data nascita">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <span>{{dataItem.birthDate | date}}</span>
+        </ng-template>
+      </kendo-grid-column>
+    </kendo-grid-column-group>
+    <kendo-grid-column field="tipoContratto" title="Contratto">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <span>{{getContractTypeDescription(dataItem.tipoContratto)}}</span>
+      </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="quotaIscrizionePagata" title="Iscrizione">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <div class="text-center">
+          <mat-icon class="pagato" [hidden]="!dataItem.quotaIscrizionePagata">check</mat-icon>
+          <mat-icon class="non-pagato" [hidden]="dataItem.quotaIscrizionePagata">close</mat-icon>
+        </div>
+      </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="id" title="Dettagli">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <div class="text-center">
+          <a [routerLink]="getBambinoLink(dataItem.id)">
+            <mat-icon>edit</mat-icon>
+          </a>
+        </div>
+      </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="id" title="Presenze">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <div class="text-center">
+          <a [routerLink]="getPresenceLink(dataItem.id)">
+            <mat-icon>event_note</mat-icon>
+          </a>
+        </div>
+      </ng-template>
+    </kendo-grid-column>
+  </kendo-grid>
+
+</div>

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 export enum States {
   Home = 'home',
@@ -19,5 +20,23 @@ export enum HomeStates {
 @Injectable()
 export class NavigationService {
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
+
+  public navigateToKidsList(): void {
+    this.router.navigate([States.Home, HomeStates.KidsList]);
+  }
+
+  public navigateToAttendance(): void {
+    this.router.navigate([States.Home, HomeStates.Attendance]);
+  }
+
+  public navigateToSettings(): void {
+    this.router.navigate([States.Home, HomeStates.Settings]);
+  }
+
+  public navigateToNewKid(): void {
+    this.router.navigate([States.Home, HomeStates.NewKid]);
+  }
 }
