@@ -1,0 +1,32 @@
+.container {
+  width: 90%;
+  margin: auto;
+  padding: 20px;
+  padding-right: 100px;
+}
+
+.row {
+  padding-bottom: 2rem;
+
+  div {
+    padding: 1rem;
+  }
+}
+
+kendo-numerictextbox {
+  width: 100%;
+  text-align: right;
+}
+
+kendo-switch {
+  display: block;
+}
+
+kendo-textbox-container,
+textarea {
+  width: 100%;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  padding-top: 1rem;
+}

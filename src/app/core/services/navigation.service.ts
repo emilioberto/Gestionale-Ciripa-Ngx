@@ -36,6 +36,10 @@ export class NavigationService {
     this.router.navigate([States.Home, HomeStates.Settings]);
   }
 
+  public navigateToKid(kidId: number): void {
+    this.router.navigate([States.Home, HomeStates.Kid, kidId]);
+  }
+
   public navigateToNewKid(): void {
     this.router.navigate([States.Home, HomeStates.NewKid]);
   }
