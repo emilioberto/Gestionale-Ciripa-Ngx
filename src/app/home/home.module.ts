@@ -9,19 +9,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { KidsListComponent } from './kids-list/kids-list.component';
 import { AttendanceComponent } from './attendance/attendance.component';
 import { KidComponent } from './kid/kid.component';
-
-import { PDFModule, GridModule } from '@progress/kendo-angular-grid';
-import { TimePickerModule } from '@progress/kendo-angular-dateinputs';
-import { IntlModule } from '@progress/kendo-angular-intl';
-import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
-
-const KendoModules = [
-  DropDownsModule,
-  IntlModule,
-  GridModule,
-  TimePickerModule,
-  PDFModule,
-];
+import { KendoModule } from 'app/kendo/kendo.module';
 
 @NgModule({
   declarations: [DashboardComponent, HomeComponent, SettingsComponent, KidsListComponent, AttendanceComponent, KidComponent],
@@ -29,7 +17,9 @@ const KendoModules = [
     CommonModule,
     HomeRoutingModule,
     MaterialModule,
-    ...KendoModules
+    KendoModule
+  ],
+  exports: [
   ]
 })
 export class HomeModule { }

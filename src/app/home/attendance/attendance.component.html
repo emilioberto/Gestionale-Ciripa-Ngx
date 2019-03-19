@@ -1,3 +1,71 @@
-<p>
-  attendance works!
-</p>
+<div class="container">
+  <h1 class="text-center">Appello</h1>
+
+  <form [formGroup]="editForm">
+    <div class="row">
+      <div class="form-group col-4 offset-4" id="attendanceDate">
+        <kendo-datepicker formControlName="date" class="form-control" id="date" (valueChange)="onChange($event)">
+        </kendo-datepicker>
+      </div>
+    </div>
+
+    <kendo-grid [data]="gridView" formArrayName="presencesList">
+      <!-- Id -->
+      <kendo-grid-column title="Id" [hidden]="true">
+        <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+          <kendo-numerictextbox [formControl]="idFormControl(rowIndex)" [format]="'n0'" disabled>
+          </kendo-numerictextbox>
+        </ng-template>
+      </kendo-grid-column>
+
+      <!-- BambinoId -->
+      <kendo-grid-column title="BambinoId" [hidden]="true">
+        <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+          <kendo-numerictextbox [formControl]="kidIdFormControl(rowIndex)" [format]="'n0'">
+          </kendo-numerictextbox>
+        </ng-template>
+      </kendo-grid-column>
+
+      <!-- Nome cognome -->
+      <kendo-grid-column title="Nome">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <span>{{dataItem.kid.firstName}} {{dataItem.kid.lastName}}</span>
+        </ng-template>
+      </kendo-grid-column>
+
+      <!-- Mattina -->
+      <kendo-grid-column-group title="Mattina" [locked]="false">
+        <kendo-grid-column title="Entrata">
+          <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+            <kendo-timepicker [formControl]="morningEntryFormControl(rowIndex)"
+              [ngClass]="{'error': morningEntryFormControl(rowIndex)?.errors}">
+            </kendo-timepicker>
+          </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column title="Uscita">
+          <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+            <kendo-timepicker [formControl]="morningExitFormControl(rowIndex)"
+              [ngClass]="{'error': morningExitFormControl(rowIndex)?.errors}"></kendo-timepicker>
+          </ng-template>
+        </kendo-grid-column>
+      </kendo-grid-column-group>
+
+      <!-- Pomeriggio -->
+      <kendo-grid-column-group title="Pomeriggio" [locked]="false">
+        <kendo-grid-column title="Entrata">
+          <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+            <kendo-timepicker [formControl]="eveningEntryFormControl(rowIndex)"
+              [ngClass]="{'error': eveningEntryFormControl(rowIndex)?.errors}"></kendo-timepicker>
+          </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column title="Uscita">
+          <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+            <kendo-timepicker [formControl]="eveningExitFormControl(rowIndex)"
+              [ngClass]="{'error': eveningExitFormControl(rowIndex)?.errors}"></kendo-timepicker>
+          </ng-template>
+        </kendo-grid-column>
+      </kendo-grid-column-group>
+
+    </kendo-grid>
+  </form>
+</div>

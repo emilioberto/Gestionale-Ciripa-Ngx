@@ -1,5 +1,3 @@
-<app-speed-dial-fab #speedDialFabComponent [isEditPage]="true"></app-speed-dial-fab>
-
 <div class="container">
   <h1 class="text-center">Bambino</h1>
 
@@ -7,86 +5,87 @@
     <div class="row">
       <div class="col-4">
         <kendo-textbox-container floatingLabel="Nome">
-          <input kendoTextBox formControlName="nome"
-            [ngClass]="{'error': editForm.controls.nome.errors && editForm.controls.nome.touched}">
+          <input kendoTextBox formControlName="firstName"
+            [ngClass]="{'error': editForm?.controls.firstName.errors && editForm?.controls.firstName.touched}">
         </kendo-textbox-container>
-        <p class="errorMessage" *ngIf="getFormControlByName('nome').errors && getFormControlByName('nome').touched">
+        <p class="errorMessage"
+          *ngIf="getFormControlByName('firstName').errors && getFormControlByName('firstName').touched">
           Obbligatorio</p>
       </div>
       <div class="col-4">
         <kendo-textbox-container floatingLabel="Cognome">
-          <input kendoTextBox formControlName="cognome"
-            [ngClass]="{'error': editForm.controls.cognome.errors && editForm.controls.cognome.touched}">
+          <input kendoTextBox formControlName="lastName"
+            [ngClass]="{'error': editForm?.controls.lastName.errors && editForm?.controls.lastName.touched}">
         </kendo-textbox-container>
         <p class="errorMessage"
-          *ngIf="getFormControlByName('cognome').errors && getFormControlByName('cognome').touched">Obbligatorio</p>
+          *ngIf="getFormControlByName('lastName').errors && getFormControlByName('lastName').touched">Obbligatorio</p>
       </div>
       <div class="col-4">
         <kendo-textbox-container floatingLabel="Data di nascita">
-          <kendo-datepicker formControlName="dataNascita" id="dataNascita"></kendo-datepicker>
+          <kendo-datepicker formControlName="birthDate" id="birthDate"></kendo-datepicker>
         </kendo-textbox-container>
       </div>
     </div>
     <div class="row">
       <div class="col-4">
         <kendo-textbox-container floatingLabel="Tipo contratto">
-          <kendo-dropdownlist formControlName="tipoContratto" id="tipoContratto" [data]="tipoContrattoList"
+          <kendo-dropdownlist formControlName="contractType" id="contractType" [data]="contractTypeList"
             textField="text" valueField="value" valuePrimitive="true">
           </kendo-dropdownlist>
         </kendo-textbox-container>
         <p class="errorMessage"
-          *ngIf="getFormControlByName('tipoContratto').errors && getFormControlByName('tipoContratto').touched">
+          *ngIf="getFormControlByName('contractType').errors && getFormControlByName('contractType').touched">
           Obbligatorio</p>
       </div>
       <div class="col-4">
         <kendo-textbox-container floatingLabel="Cliente dal">
-          <kendo-datepicker formControlName="clienteDal" id="clienteDal"></kendo-datepicker>
+          <kendo-datepicker formControlName="from" id="from"></kendo-datepicker>
         </kendo-textbox-container>
       </div>
       <div class="col-4">
         <kendo-textbox-container floatingLabel="Cliente al">
-          <kendo-datepicker formControlName="clienteAl" id="clienteAl"></kendo-datepicker>
+          <kendo-datepicker formControlName="to" id="to"></kendo-datepicker>
         </kendo-textbox-container>
       </div>
     </div>
     <div class="row">
       <div class="col-4">
         <kendo-textbox-container floatingLabel="Note">
-          <textarea kendoTextArea formControlName="note"></textarea>
+          <textarea kendoTextArea formControlName="notes"></textarea>
         </kendo-textbox-container>
       </div>
       <div class="col-4">
         <kendo-textbox-container floatingLabel="Quota iscrizione">
-          <kendo-numerictextbox formControlName="quotaIscrizione" id="quotaIscrizione" [min]="0" [format]="'c2'">
+          <kendo-numerictextbox formControlName="subscription" id="subscription" [min]="0" [format]="'c2'">
           </kendo-numerictextbox>
         </kendo-textbox-container>
       </div>
       <div class="col-4">
         <div class="k-form-field">
-          <input type="checkbox" id="ch1" class="k-checkbox" formControlName="quotaIscrizionePagata" />
+          <input type="checkbox" id="ch1" class="k-checkbox" formControlName="subscriptionPaid" />
           <label class="k-checkbox-label" for="ch1">Quota iscrizione pagata</label>
         </div>
       </div>
     </div>
     <h6>Dati fatturazione</h6>
-    <div class="datiFatturazione" formGroupName="datiFatturazione">
+    <div class="billingData" formGroupName="billingData">
       <div class="row">
         <div class="col-4">
           <kendo-textbox-container floatingLabel="Nome genitore">
-            <input kendoTextBox formControlName="genitoreNome"
-              [ngClass]="{'error': editForm.controls.datiFatturazione.controls.genitoreNome.errors && editForm.controls.datiFatturazione.controls.genitoreNome.touched}">
+            <input kendoTextBox formControlName="parentFirstName"
+              [ngClass]="{'error': editForm?.controls.billingData.controls.parentFirstName.errors && editForm?.controls.billingData.controls.parentFirstName.touched}">
           </kendo-textbox-container>
           <p class="errorMessage"
-            *ngIf="getDatiFatturazioneFormControlByName('genitoreNome').errors && getDatiFatturazioneFormControlByName('genitoreNome').touched">
+            *ngIf="getBillingDataFormControlByName('parentFirstName').errors && getBillingDataFormControlByName('parentFirstName').touched">
             Obbligatorio</p>
         </div>
         <div class="col-4">
           <kendo-textbox-container floatingLabel="Cognome genitore">
             <input kendoTextBox formControlName="parentLastName"
-              [ngClass]="{'error': editForm.controls.datiFatturazione.controls.genitoreCognome.errors && editForm.controls.datiFatturazione.controls.genitoreCognome.touched}">
+              [ngClass]="{'error': editForm?.controls.datiFatturazione?.controls.parentLastName.errors && editForm?.controls.datiFatturazione?.controls.parentLastName.touched}">
           </kendo-textbox-container>
           <p class="errorMessage"
-            *ngIf="getDatiFatturazioneFormControlByName('genitoreCognome').errors && getDatiFatturazioneFormControlByName('genitoreCognome').touched">
+            *ngIf="getBillingDataFormControlByName('parentLastName').errors && getBillingDataFormControlByName('parentLastName').touched">
             Obbligatorio</p>
         </div>
         <div class="col-4">

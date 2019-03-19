@@ -9,6 +9,7 @@ import { takeWhile, take } from 'rxjs/operators';
 import { BaseComponent } from 'app/shared/components/base.component';
 import { ContractType, PaymentMethod, Kid } from 'app/shared/models/kid.model';
 import { NavigationService } from 'app/core/services/navigation.service';
+import { KidService } from 'app/shared/services/kid.service';
 
 @Component({
   selector: 'app-kid',
@@ -21,7 +22,7 @@ export class KidComponent extends BaseComponent implements OnInit {
   public paymentMethodList: Array<{ value: PaymentMethod, text: string }>;
   public kid: Kid;
   public editForm: FormGroup;
-  public submitted: boolean;
+  public submitted = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -37,21 +38,13 @@ export class KidComponent extends BaseComponent implements OnInit {
       { value: ContractType.Hours, text: ContractType[ContractType.Hours] }
     ];
     this.paymentMethodList = [
-      { value: PaymentMethod.Bonifico, text: PaymentMethod[PaymentMethod.Bonifico] },
-      { value: PaymentMethod.Contanti, text: PaymentMethod[PaymentMethod.Contanti] }
+      { value: PaymentMethod.Bonifico, text: 'Bonifico' },
+      { value: PaymentMethod.Contanti, text: 'Contanti' }
     ];
   }
 
   ngOnInit() {
-    this.submitted = false;
-
-    combineLatest(this.activatedRoute.params, this.activatedRoute.data)
-      .pipe(takeWhile(() => this.isAlive))
-      .subscribe(([params, data]: [Params, Data]) => {
-        this.kid = <Kid>this.activatedRoute.snapshot.data['kid'];
-        this.generateForm();
-        this.setDataOnForm();
-      });
+    this.generateForm();
   }
 
   private generateForm(): void {
@@ -109,10 +102,16 @@ export class KidComponent extends BaseComponent implements OnInit {
   }
 
   public getFormControlByName(controlName: string): FormControl {
+    if (!this.editForm) {
+      return null;
+    }
     return this.editForm.get(controlName) as FormControl;
   }
 
-  public getDatiFatturazioneFormControlByName(controlName: string): FormControl {
+  public getBillingDataFormControlByName(controlName: string): FormControl {
+    if (!this.editForm) {
+      return null;
+    }
     return (this.editForm.get('billingData') as FormGroup).get(controlName) as FormControl;
   }
 

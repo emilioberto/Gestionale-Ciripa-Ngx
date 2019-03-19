@@ -1,4 +1,109 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700");
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import "~bootstrap/dist/css/bootstrap.css";
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@import "~@progress/kendo-theme-material/scss/all.scss";
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  background: #fafafa;
+  font-family: Roboto, sans-serif;
+
+  button:focus {
+    outline: none !important;
+  }
+
+  .errorMessage {
+    color: red;
+  }
+
+  .error {
+    border-color: red;
+  }
+  kendo-timepicker.error {
+    // background-color: rgba(255, 0, 0, 0.2);
+    color: red;
+    .k-autocomplete,
+    .k-dateinput-wrap,
+    .k-dropdown-wrap,
+    .k-picker-wrap,
+    .k-multiselect-wrap,
+    .k-numeric-wrap {
+      .k-input {
+        color: red;
+        font-weight: bold;
+      }
+    }
+
+    .k-i-arrow-s.k-icon,
+    .k-icon.k-i-arrow-n,
+    .k-widget {
+      color: red;
+      font-weight: bold;
+    }
+  }
+
+  /deep/ .k-grid th {
+    padding: 0.25rem 0.5rem;
+    text-align: center;
+  }
+
+  /deep/ .k-grid td {
+    padding: 0.25rem 0.25rem;
+    text-align: center;
+  }
+
+  .mat-snack-bar-container.error-snack-bar {
+    background-color: #bd2223;
+    color: white;
+    font-weight: 400;
+
+    .mat-simple-snackbar-action {
+      color: white;
+      font-weight: 400;
+    }
+  }
+
+  .mat-snack-bar-container.success-snack-bar {
+    background-color: #48b04b;
+    color: white;
+    font-weight: 400;
+
+    .mat-simple-snackbar-action {
+      color: white;
+      font-weight: 400;
+    }
+  }
+
+  .mat-drawer-container {
+    color: black;
+  }
+
+  #bambinoForm,
+  #appelloData,
+  #presenzeData,
+  #tariffaOraria,
+  #tariffaExtra {
+    .k-autocomplete,
+    .k-dateinput-wrap,
+    .k-dropdown-wrap,
+    .k-picker-wrap,
+    .k-multiselect-wrap,
+    .k-numeric-wrap {
+      .k-input {
+        color: black;
+      }
+    }
+
+    .k-i-arrow-s.k-icon,
+    .k-icon.k-i-arrow-n,
+    .k-widget {
+      color: black;
+    }
+  }
+}
