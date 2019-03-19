@@ -105,7 +105,7 @@ export class KidsListComponent extends BaseComponent implements OnInit {
     }));
   }
 
-  public add(): void {
+  public createKid(): void {
     this.navigationService.navigateToNewKid();
   }
 }
