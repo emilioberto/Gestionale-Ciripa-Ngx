@@ -4,12 +4,13 @@ import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router, Params, Data } from '@angular/router';
 
 import { combineLatest } from 'rxjs';
-import { takeWhile, take } from 'rxjs/operators';
+import { takeWhile, take, catchError } from 'rxjs/operators';
 
 import { BaseComponent } from 'app/shared/components/base.component';
 import { ContractType, PaymentMethod, Kid } from 'app/shared/models/kid.model';
 import { NavigationService } from 'app/core/services/navigation.service';
 import { KidService } from 'app/shared/services/kid.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-kid',
@@ -129,14 +130,19 @@ export class KidComponent extends BaseComponent implements OnInit {
         .pipe(
           take(1)
         )
-        .subscribe(res => {
-          if (entity.id > 0) {
-            this.router.navigate([this.router.url.split('?')[0]], { queryParams: { t: Math.random() } });
-          } else {
-            this.navigationService.navigateToKid(res);
+        .subscribe(
+          res => {
+            if (entity.id > 0) {
+              this.router.navigate([this.router.url.split('?')[0]], { queryParams: { t: Math.random() } });
+            } else {
+              this.navigationService.navigateToKid(res);
+            }
+            this.addSuccessNotification(`Salvataggio effettuato`, `Ok`);
+          },
+          err => {
+            this.addErrorNotification(err.message, 'Ok');
           }
-          this.addSuccessNotification(`Salvataggio effettuato`, `Ok`);
-        });
+        );
     } else {
       this.addErrorNotification('Attenzione, compilare tutti i campi richiesti!', 'Ok');
     }
@@ -146,12 +152,17 @@ export class KidComponent extends BaseComponent implements OnInit {
     const entity = this.getData();
     this.service.deleteBambino(entity.id)
       .pipe(
-        take(1)
+        take(1),
       )
-      .subscribe(res => {
-        this.addSuccessNotification(`Eliminazione effettuata`, `Ok`);
-        this.navigationService.navigateToKidsList();
-      });
+      .subscribe(
+        res => {
+          this.addSuccessNotification(`Eliminazione effettuata`, `Ok`);
+          this.navigationService.navigateToKidsList();
+        },
+        err => {
+          this.addErrorNotification(err.message, 'Ok');
+        }
+      );
   }
 
   private restore(): void {

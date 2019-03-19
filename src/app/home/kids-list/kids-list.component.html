@@ -63,7 +63,7 @@
     <kendo-grid-column field="id" title="Dettagli">
       <ng-template kendoGridCellTemplate let-dataItem>
         <div class="text-center">
-          <a [routerLink]="getBambinoLink(dataItem.id)">
+          <a (click)="navigateToKid(dataItem.id)">
             <mat-icon>edit</mat-icon>
           </a>
         </div>
@@ -72,7 +72,7 @@
     <kendo-grid-column field="id" title="Presenze">
       <ng-template kendoGridCellTemplate let-dataItem>
         <div class="text-center">
-          <a [routerLink]="getPresenceLink(dataItem.id)">
+          <a (click)="navigateToPresences(dataItem.id)">
             <mat-icon>event_note</mat-icon>
           </a>
         </div>

@@ -8,6 +8,7 @@ import { GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { BaseComponent } from 'app/shared/components/base.component';
 import { Kid, ContractType } from 'app/shared/models/kid.model';
 import { NavigationService } from 'app/core/services/navigation.service';
+import { KidService } from 'app/shared/services/kid.service';
 
 @Component({
   selector: 'app-kids-list',
@@ -19,7 +20,7 @@ export class KidsListComponent extends BaseComponent implements OnInit {
   public gridView: GridDataResult;
   public pageSize = 5;
   public skip = 0;
-  public bambinoList: Array<Kid> = [];
+  public kidsList: Array<Kid> = [];
   public hiddenKid = false;
   public hiddenParent = false;
   public kidListSortKey = 'kidListSort';
@@ -32,6 +33,7 @@ export class KidsListComponent extends BaseComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private navigationService: NavigationService,
+    private kidService: KidService,
     snackBar: MatSnackBar,
   ) {
     super(snackBar);
@@ -45,14 +47,22 @@ export class KidsListComponent extends BaseComponent implements OnInit {
     this.hiddenKid = !!savedListOptions ? JSON.parse(savedListOptions).hiddenBambino : false;
     this.hiddenParent = !!savedListOptions ? JSON.parse(savedListOptions).hiddenGenitore : false;
 
-    this.bambinoList = <Array<Kid>>this.activatedRoute.snapshot.data['kidList'] || [];
-    this.loadGridData();
+    this.kidsList = <Array<Kid>>this.activatedRoute.snapshot.data['kidList'] || [];
+    this.kidService.getBambinoList().subscribe(
+      kidsList => {
+        this.kidsList = kidsList;
+        this.loadGridData();
+      },
+      err => {
+        this.addErrorNotification(err.message, 'Ok');
+      }
+    );
   }
 
   private loadGridData(): void {
     this.gridView = {
-      data: orderBy(this.bambinoList.slice(this.skip, this.skip + this.pageSize), this.sort),
-      total: this.bambinoList.length
+      data: orderBy(this.kidsList.slice(this.skip, this.skip + this.pageSize), this.sort),
+      total: this.kidsList.length
     };
   }
 
@@ -71,11 +81,11 @@ export class KidsListComponent extends BaseComponent implements OnInit {
     return contractType === ContractType.Contract ? 'Contratto' : 'Ore';
   }
 
-  public getBambinoLink(id: number): string {
-    return `/bambino/${id}`;
+  public navigateToKid(id: number): void {
+    return this.navigationService.navigateToKid(id);
   }
 
-  public getPresenceLink(id: number): string {
+  public navigateToPresences(id: number): string {
     const today = new Date();
     return `/presenze/${id}/${today.getFullYear()}/${today.getMonth()}`;
   }
@@ -97,7 +107,8 @@ export class KidsListComponent extends BaseComponent implements OnInit {
     this.hiddenKid = false;
     this.saveListOptionsToLocalStorage();
   }
-  saveListOptionsToLocalStorage(): void {
+
+  public saveListOptionsToLocalStorage(): void {
     localStorage.removeItem(this.kidListOptions);
     localStorage.setItem(this.kidListOptions, JSON.stringify({
       hiddenKid: this.hiddenKid,
