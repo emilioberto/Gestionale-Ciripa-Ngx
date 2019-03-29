@@ -93,7 +93,7 @@ export class AttendanceComponent extends BaseComponent implements OnInit {
     this.editForm = this.fb.group({
       id: 0,
       date: null,
-      attandancesList: this.fb.array([])
+      presencesList: this.fb.array([])
     });
   }
 

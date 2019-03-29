@@ -46,11 +46,25 @@ export class KidComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.generateForm();
+    this.activatedRoute.params.subscribe(params => {
+      const id = params['id'];
+      if (id) {
+        this.service.getBambinoById(id).subscribe(
+          kid => {
+            this.kid = kid;
+            this.setDataOnForm();
+          },
+          err => {
+            this.addErrorNotification(err.message, 'Ok');
+          }
+        );
+      }
+    });
   }
 
   private generateForm(): void {
     this.editForm = this.fb.group({
-      id: 0,
+      id: null,
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       birthDate: null,
@@ -117,7 +131,11 @@ export class KidComponent extends BaseComponent implements OnInit {
   }
 
   private getData(): Kid {
-    return this.editForm.getRawValue() as Kid;
+    const kid = this.editForm.getRawValue() as Kid;
+    if (!kid.id) {
+      delete kid.id;
+    }
+    return kid;
   }
 
   private save(): void {
@@ -132,7 +150,7 @@ export class KidComponent extends BaseComponent implements OnInit {
         )
         .subscribe(
           res => {
-            if (entity.id > 0) {
+            if (entity.id) {
               this.router.navigate([this.router.url.split('?')[0]], { queryParams: { t: Math.random() } });
             } else {
               this.navigationService.navigateToKid(res);

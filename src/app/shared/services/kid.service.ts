@@ -27,7 +27,7 @@ export class KidService {
     return this.http.put(`${environment.baseUrl}/kid`, kid);
   }
 
-  public deleteBambino(id: number): Observable<any> {
+  public deleteBambino(id: string): Observable<any> {
     return this.http.delete(`${environment.baseUrl}/kid/${id}`);
   }
 }

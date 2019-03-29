@@ -1,5 +1,5 @@
 export class Kid {
-  id: number;
+  id: string;
   firstName: string;
   lastName: string;
   birthDate: Date;
