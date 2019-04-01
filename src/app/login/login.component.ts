@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { NavigationService } from 'app/core/services/navigation.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  public username: string;
+  public password: string;
+
+  constructor(
+    private navigationSvc: NavigationService
+  ) { }
 
   ngOnInit() {
+  }
+
+  public login(): void {
+    this.navigationSvc.navigateToHome();
   }
 
 }

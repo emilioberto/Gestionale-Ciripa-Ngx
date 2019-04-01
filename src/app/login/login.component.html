@@ -1,3 +1,12 @@
-<p>
-  login works!
-</p>
+<div class="login-container">
+  <h2>Autenticazione</h2>
+
+  <kendo-textbox-container floatingLabel="Username">
+    <input kendoTextBox [(ngModel)]="username">
+  </kendo-textbox-container>
+  <kendo-textbox-container floatingLabel="Password">
+    <input kendoTextBox type="password" [(ngModel)]="password">
+  </kendo-textbox-container>
+
+  <button mat-raised-button color="primary" (click)="login()">Accedi</button>
+</div>

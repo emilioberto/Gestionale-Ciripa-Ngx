@@ -35,8 +35,8 @@ export class KidComponent extends BaseComponent implements OnInit {
   ) {
     super(snackBar);
     this.contractTypeList = [
-      { value: ContractType.Contract, text: ContractType[ContractType.Contract] },
-      { value: ContractType.Hours, text: ContractType[ContractType.Hours] }
+      { value: ContractType.Contratto, text: ContractType[ContractType.Contratto] },
+      { value: ContractType.Ore, text: ContractType[ContractType.Ore] }
     ];
     this.paymentMethodList = [
       { value: PaymentMethod.Bonifico, text: 'Bonifico' },
@@ -67,6 +67,7 @@ export class KidComponent extends BaseComponent implements OnInit {
       id: null,
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
+      fiscalCode: '',
       birthDate: null,
       from: null,
       to: null,
@@ -79,6 +80,7 @@ export class KidComponent extends BaseComponent implements OnInit {
         id: 0,
         parentFirstName: ['', Validators.required],
         parentLastName: ['', Validators.required],
+        parentFiscalCode: '',
         paymentMethod: ['', Validators.required],
         address: '',
         city: '',

@@ -78,7 +78,7 @@ export class KidsListComponent extends BaseComponent implements OnInit {
   }
 
   public getContractTypeDescription(contractType: ContractType): string {
-    return contractType === ContractType.Contract ? 'Contratto' : 'Ore';
+    return contractType === ContractType.Contratto ? 'Contratto' : 'Ore';
   }
 
   public navigateToKid(id: number): void {

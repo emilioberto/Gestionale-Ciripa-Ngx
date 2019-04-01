@@ -19,7 +19,7 @@
 
   <form [formGroup]="editForm" id="bambinoForm">
     <div class="row">
-      <div class="col-4">
+      <div class="col-3">
         <kendo-textbox-container floatingLabel="Nome">
           <input kendoTextBox formControlName="firstName"
             [ngClass]="{'error': editForm?.controls.firstName.errors && editForm?.controls.firstName.touched}">
@@ -28,7 +28,7 @@
           *ngIf="getFormControlByName('firstName').errors && getFormControlByName('firstName').touched">
           Obbligatorio</p>
       </div>
-      <div class="col-4">
+      <div class="col-3">
         <kendo-textbox-container floatingLabel="Cognome">
           <input kendoTextBox formControlName="lastName"
             [ngClass]="{'error': editForm?.controls.lastName.errors && editForm?.controls.lastName.touched}">
@@ -36,7 +36,12 @@
         <p class="errorMessage"
           *ngIf="getFormControlByName('lastName').errors && getFormControlByName('lastName').touched">Obbligatorio</p>
       </div>
-      <div class="col-4">
+      <div class="col-3">
+        <kendo-textbox-container floatingLabel="Codice fiscale">
+          <input kendoTextBox formControlName="fiscalCode">
+        </kendo-textbox-container>
+      </div>
+      <div class="col-3">
         <kendo-textbox-container floatingLabel="Data di nascita">
           <kendo-datepicker formControlName="birthDate" id="birthDate"></kendo-datepicker>
         </kendo-textbox-container>
@@ -86,7 +91,7 @@
     <h6>Dati fatturazione</h6>
     <div class="billingData" formGroupName="billingData">
       <div class="row">
-        <div class="col-4">
+        <div class="col-3">
           <kendo-textbox-container floatingLabel="Nome genitore">
             <input kendoTextBox formControlName="parentFirstName"
               [ngClass]="{'error': editForm?.controls.billingData.controls.parentFirstName.errors && editForm?.controls.billingData.controls.parentFirstName.touched}">
@@ -95,7 +100,7 @@
             *ngIf="getBillingDataFormControlByName('parentFirstName').errors && getBillingDataFormControlByName('parentFirstName').touched">
             Obbligatorio</p>
         </div>
-        <div class="col-4">
+        <div class="col-3">
           <kendo-textbox-container floatingLabel="Cognome genitore">
             <input kendoTextBox formControlName="parentLastName"
               [ngClass]="{'error': editForm?.controls.datiFatturazione?.controls.parentLastName.errors && editForm?.controls.datiFatturazione?.controls.parentLastName.touched}">
@@ -104,7 +109,12 @@
             *ngIf="getBillingDataFormControlByName('parentLastName').errors && getBillingDataFormControlByName('parentLastName').touched">
             Obbligatorio</p>
         </div>
-        <div class="col-4">
+        <div class="col-3">
+          <kendo-textbox-container floatingLabel="Codice fiscale">
+            <input kendoTextBox formControlName="parentFiscalCode">
+          </kendo-textbox-container>
+        </div>
+        <div class="col-3">
           <kendo-textbox-container floatingLabel="Metodo pagamento">
             <kendo-dropdownlist formControlName="paymentMethod" id="metodoPagamento" [data]="paymentMethodList"
               textField="text" valueField="value" valuePrimitive="true">

@@ -2,6 +2,7 @@ export class Kid {
   id: string;
   firstName: string;
   lastName: string;
+  fiscalCode: string;
   birthDate: Date;
   from: Date;
   to: Date;
@@ -17,6 +18,7 @@ export class Billing {
   id: number;
   parentFirstName: string;
   parentLastName: string;
+  parentFiscalCode: string;
   address: string;
   city: string;
   cap: number;
@@ -30,6 +32,6 @@ export enum PaymentMethod {
 }
 
 export enum ContractType {
-  Contract = 0,
-  Hours
+  Contratto = 0,
+  Ore
 }

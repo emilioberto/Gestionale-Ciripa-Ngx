@@ -24,6 +24,10 @@ export class NavigationService {
     private router: Router
   ) { }
 
+  public navigateToHome(): void {
+    this.router.navigate([States.Home]);
+  }
+
   public navigateToKidsList(): void {
     this.router.navigate([States.Home, HomeStates.KidsList]);
   }
