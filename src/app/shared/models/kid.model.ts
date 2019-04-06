@@ -1,3 +1,5 @@
+import { Presence } from 'app/shared/models/presence.model';
+
 export class Kid {
   id: string;
   firstName: string;
@@ -8,14 +10,9 @@ export class Kid {
   to: Date;
   contractType: ContractType;
   notes: string;
-  billingData: Billing;
-
   subscription: number;
   subscriptionPaid: boolean;
-}
-
-export class Billing {
-  id: number;
+  // Billing data
   parentFirstName: string;
   parentLastName: string;
   parentFiscalCode: string;
@@ -24,6 +21,8 @@ export class Billing {
   cap: number;
   province: string;
   paymentMethod: PaymentMethod;
+  // Presences
+  presencesList: Presence[];
 }
 
 export enum PaymentMethod {

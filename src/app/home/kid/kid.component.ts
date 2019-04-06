@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
-import { ActivatedRoute, Router, Params, Data } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { combineLatest } from 'rxjs';
-import { takeWhile, take, catchError } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
 import { BaseComponent } from 'app/shared/components/base.component';
 import { ContractType, PaymentMethod, Kid } from 'app/shared/models/kid.model';
 import { NavigationService } from 'app/core/services/navigation.service';
 import { KidService } from 'app/shared/services/kid.service';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-kid',
@@ -49,7 +47,7 @@ export class KidComponent extends BaseComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       const id = params['id'];
       if (id) {
-        this.service.getBambinoById(id).subscribe(
+        this.service.getKidById(id).subscribe(
           kid => {
             this.kid = kid;
             this.setDataOnForm();
@@ -76,45 +74,27 @@ export class KidComponent extends BaseComponent implements OnInit {
       subscription: 0,
       subscriptionPaid: false,
       // Dati fatturazione
-      billingData: this.fb.group({
-        id: 0,
-        parentFirstName: ['', Validators.required],
-        parentLastName: ['', Validators.required],
-        parentFiscalCode: '',
-        paymentMethod: ['', Validators.required],
-        address: '',
-        city: '',
-        cap: '',
-        province: '',
-      })
+      parentFirstName: ['', Validators.required],
+      parentLastName: ['', Validators.required],
+      parentFiscalCode: '',
+      paymentMethod: ['', Validators.required],
+      address: '',
+      city: '',
+      cap: '',
+      province: '',
     });
   }
 
   private setDataOnForm(): void {
     if (!!this.kid) {
-      this.editForm.patchValue({
-        id: this.kid.id,
-        firstName: this.kid.firstName,
-        lastName: this.kid.lastName,
-        birthDate: !!this.kid.birthDate ? new Date(this.kid.birthDate) : null,
-        from: !!this.kid.from ? new Date(this.kid.from) : null,
-        to: !!this.kid.to ? new Date(this.kid.to) : null,
-        contractType: this.kid.contractType,
-        notes: this.kid.notes,
-        // TODO Dati fatturazione
-        subscription: this.kid.subscription,
-        subscriptionPaid: this.kid.subscriptionPaid,
-        billingData: this.kid.billingData ? this.kid.billingData : {
-          id: 0,
-          parentFirstName: '',
-          parentLastName: '',
-          paymentMethod: '',
-          address: '',
-          city: '',
-          cap: '',
-          province: '',
-        }
-      });
+      const kid = Object.assign({}, this.kid);
+      kid.from = kid.from ? new Date(kid.from) : null;
+      kid.to = kid.to ? new Date(kid.to) : null;
+      kid.birthDate = kid.birthDate ? new Date(kid.birthDate) : null;
+
+      Object.keys(kid).forEach((key) => (kid[key] == null) && delete kid[key]);
+
+      this.editForm.patchValue(kid);
     }
   }
 
@@ -146,7 +126,7 @@ export class KidComponent extends BaseComponent implements OnInit {
     this.applyOnAllControls(this.editForm, c => c.markAsTouched());
     if (this.editForm.valid) {
       const entity = this.getData();
-      this.service.saveBambino(entity)
+      this.service.upsertKid(entity)
         .pipe(
           take(1)
         )
@@ -170,7 +150,7 @@ export class KidComponent extends BaseComponent implements OnInit {
 
   private delete(): void {
     const entity = this.getData();
-    this.service.deleteBambino(entity.id)
+    this.service.deleteKid(entity.id)
       .pipe(
         take(1),
       )

@@ -89,24 +89,24 @@
       </div>
     </div>
     <h6>Dati fatturazione</h6>
-    <div class="billingData" formGroupName="billingData">
+    <div class="billingData">
       <div class="row">
         <div class="col-3">
           <kendo-textbox-container floatingLabel="Nome genitore">
             <input kendoTextBox formControlName="parentFirstName"
-              [ngClass]="{'error': editForm?.controls.billingData.controls.parentFirstName.errors && editForm?.controls.billingData.controls.parentFirstName.touched}">
+              [ngClass]="{'error': editForm?.controls.parentFirstName.errors && editForm?.controls.parentFirstName.touched}">
           </kendo-textbox-container>
           <p class="errorMessage"
-            *ngIf="getBillingDataFormControlByName('parentFirstName').errors && getBillingDataFormControlByName('parentFirstName').touched">
+            *ngIf="getFormControlByName('parentFirstName').errors && getFormControlByName('parentFirstName').touched">
             Obbligatorio</p>
         </div>
         <div class="col-3">
           <kendo-textbox-container floatingLabel="Cognome genitore">
             <input kendoTextBox formControlName="parentLastName"
-              [ngClass]="{'error': editForm?.controls.datiFatturazione?.controls.parentLastName.errors && editForm?.controls.datiFatturazione?.controls.parentLastName.touched}">
+              [ngClass]="{'error': editForm?.controls.parentLastName.errors && editForm?.controls.parentLastName.touched}">
           </kendo-textbox-container>
           <p class="errorMessage"
-            *ngIf="getBillingDataFormControlByName('parentLastName').errors && getBillingDataFormControlByName('parentLastName').touched">
+            *ngIf="getFormControlByName('parentLastName').errors && getFormControlByName('parentLastName').touched">
             Obbligatorio</p>
         </div>
         <div class="col-3">

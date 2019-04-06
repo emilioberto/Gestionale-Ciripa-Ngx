@@ -1,3 +1,11 @@
-<p>
-  settings works!
-</p>
+<div class="fab-container">
+  <button mat-fab class="fab-toggler" color="primary" (click)="save()" matTooltip="Salva" [matTooltipPosition]="'left'">
+    <mat-icon>check</mat-icon>
+  </button>
+</div>
+
+<div class="settings-container">
+  <kendo-textbox-container floatingLabel="Tariffa oraria">
+    <input kendoTextBox [(ngModel)]="settings.hourCost">
+  </kendo-textbox-container>
+</div>

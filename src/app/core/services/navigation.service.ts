@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras, Params } from '@angular/router';
 
 export enum States {
   Home = 'home',

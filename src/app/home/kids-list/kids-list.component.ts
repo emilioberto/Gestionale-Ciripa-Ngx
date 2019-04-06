@@ -48,7 +48,7 @@ export class KidsListComponent extends BaseComponent implements OnInit {
     this.hiddenParent = !!savedListOptions ? JSON.parse(savedListOptions).hiddenGenitore : false;
 
     this.kidsList = <Array<Kid>>this.activatedRoute.snapshot.data['kidList'] || [];
-    this.kidService.getBambinoList().subscribe(
+    this.kidService.getKidsList().subscribe(
       kidsList => {
         this.kidsList = kidsList;
         this.loadGridData();

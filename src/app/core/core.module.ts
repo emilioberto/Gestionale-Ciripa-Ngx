@@ -2,6 +2,7 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 
 import { IntlModule } from '@progress/kendo-angular-intl';
+import { MomentModule } from 'angular2-moment';
 
 import { NavigationService } from 'app/core/services/navigation.service';
 
@@ -13,7 +14,11 @@ registerLocaleData(localeIt);
   declarations: [],
   imports: [
     CommonModule,
-    IntlModule
+    IntlModule,
+    MomentModule
+  ],
+  exports: [
+    MomentModule
   ],
   providers: [
     NavigationService,
