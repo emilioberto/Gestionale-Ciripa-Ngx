@@ -13,3 +13,10 @@ mat-sidenav {
 mat-sidenav-content {
   width: calc(100%-#{$sidenav-width});
 }
+
+mat-nav-list {
+  h3 {
+    width: 100%;
+    text-align: center;
+  }
+}

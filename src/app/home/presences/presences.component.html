@@ -8,8 +8,21 @@
 <div class="container">
   <h1 class="text-center">Riepilogo presenze</h1>
   <div class="text-center mb-3" id="presenzeData">
-    <kendo-datepicker [format]="'MMMM yyyy'" [value]="summaryDate" (valueChange)="onChange($event)">
+    <kendo-datepicker [format]="'MMMM yyyy'" [value]="summaryDate" (valueChange)="onDateChange($event)">
     </kendo-datepicker>
+  </div>
+  <div class="text-center mb-3" id="presenzeData">
+    <kendo-textbox-container floatingLabel="Bambino">
+      <kendo-dropdownlist [(ngModel)]="kidId" id="kid" [data]="kids$ | async" textField="firstName" valueField="id"
+        valuePrimitive="true" (valueChange)="onKidChange($event)">
+        <ng-template kendoDropDownListItemTemplate let-dataItem>
+          <span class="template">{{ dataItem?.firstName }} {{ dataItem?.lastName }}</span>
+        </ng-template>
+        <ng-template kendoDropDownListValueTemplate let-dataItem>
+          <span class="template">{{ dataItem?.firstName }} {{ dataItem?.lastName }}</span>
+        </ng-template>
+      </kendo-dropdownlist>
+    </kendo-textbox-container>
   </div>
 
   <kendo-grid #grid="kendoGrid" *ngIf="gridView && settings" [data]="gridView">

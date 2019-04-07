@@ -15,13 +15,14 @@ const routes: Routes = [
     path: '',
     component: HomeComponent,
     children: [
-      { path: '', redirectTo: HomeStates.Dashboard },
+      { path: '', redirectTo: HomeStates.KidsList },
       { path: HomeStates.Dashboard, component: DashboardComponent },
       { path: HomeStates.KidsList, component: KidsListComponent },
       { path: HomeStates.Kid, component: KidComponent },
       { path: HomeStates.NewKid, component: KidComponent },
       { path: HomeStates.Attendance, component: AttendanceComponent },
       { path: HomeStates.Settings, component: SettingsComponent },
+      { path: HomeStates.Presences, component: PresencesComponent },
       { path: HomeStates.PresencesByKidMonthYear, component: PresencesComponent }
     ]
   },

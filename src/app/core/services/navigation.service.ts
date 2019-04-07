@@ -49,6 +49,10 @@ export class NavigationService {
     this.router.navigate([States.Home, HomeStates.NewKid]);
   }
 
+  public navigateToPresences(): void {
+    this.router.navigate([States.Home, HomeStates.Presences]);
+  }
+
   public navigateToPresencesSummary(kidId: number, month: number, year: number): void {
     this.router.navigate([States.Home, HomeStates.Presences, kidId, month, year]);
   }

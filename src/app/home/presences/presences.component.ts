@@ -3,8 +3,8 @@ import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 
 import { GridComponent, GridDataResult } from '@progress/kendo-angular-grid';
+import { Observable } from 'rxjs';
 
-import { AttendanceService } from 'app/shared/services/attendance.service';
 import { BaseComponent } from 'app/shared/components/base.component';
 import { Settings } from 'app/shared/models/settings.model';
 import { ActivatedRoute } from '@angular/router';
@@ -24,6 +24,7 @@ export class PresencesComponent extends BaseComponent implements OnInit {
   @ViewChild('grid') private grid: GridComponent;
 
   public isPrintingPdf = false;
+  public kids$: Observable<Kid[]>;
   public kid: Kid;
   public monthYearDescription: string;
   public settings: Settings;
@@ -44,6 +45,8 @@ export class PresencesComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.kids$ = this.kidService.getKidsList();
+
     this.settingsService.getSettings()
       .pipe(take(1))
       .subscribe(settings => {
@@ -130,21 +133,23 @@ export class PresencesComponent extends BaseComponent implements OnInit {
     return `Presenze_${parentFullName}_${this.monthsList[this.summaryDate.getMonth()]}${this.summaryDate.getFullYear()}.pdf`;
   }
 
-  public onChange(value: Date): void {
+  public onDateChange(value: Date): void {
     this.summaryDate = value;
     this.loadPresenceSummary();
   }
 
-  public loadPresenceSummary(): void {
-    this.kidService.getPresenceSummaryByKidId(this.kidId, this.summaryDate.getMonth(), this.summaryDate.getFullYear())
-      .pipe(take(1))
-      .subscribe(kid => {
-        this.kid = kid;
-        this.loadGridData();
-      });
+  public onKidChange(value: number): void {
+    this.loadPresenceSummary();
   }
 
-  public save(): void {
-
+  public loadPresenceSummary(): void {
+    if (this.kidId) {
+      this.kidService.getPresenceSummaryByKidId(this.kidId, this.summaryDate.getMonth(), this.summaryDate.getFullYear())
+        .pipe(take(1))
+        .subscribe(kid => {
+          this.kid = kid;
+          this.loadGridData();
+        });
+    }
   }
 }

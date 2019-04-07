@@ -27,4 +27,8 @@ export class HomeComponent implements OnInit {
   public navigateToSettings(): void {
     this.navigationService.navigateToSettings();
   }
+
+  public navigateToPresences(): void {
+    this.navigationService.navigateToPresences();
+  }
 }
