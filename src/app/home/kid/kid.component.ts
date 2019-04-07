@@ -70,6 +70,7 @@ export class KidComponent extends BaseComponent implements OnInit {
       from: null,
       to: null,
       contractType: ['', Validators.required],
+      contractValue: 0,
       notes: '',
       subscription: 0,
       subscriptionPaid: false,
@@ -126,6 +127,9 @@ export class KidComponent extends BaseComponent implements OnInit {
     this.applyOnAllControls(this.editForm, c => c.markAsTouched());
     if (this.editForm.valid) {
       const entity = this.getData();
+      if (entity.contractType !== ContractType.Contratto) {
+        entity.contractValue = 0;
+      }
       this.service.upsertKid(entity)
         .pipe(
           take(1)

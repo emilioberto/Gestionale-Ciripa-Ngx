@@ -13,7 +13,8 @@ export enum HomeStates {
   NewKid = 'kid',
   Kid = 'kid/:id',
   Attendance = 'attendance',
-  Presenced = 'presences',
+  Presences = 'presences',
+  PresencesByKidMonthYear = 'presences/:kidId/:month/:year',
   Settings = 'settings'
 }
 
@@ -46,5 +47,9 @@ export class NavigationService {
 
   public navigateToNewKid(): void {
     this.router.navigate([States.Home, HomeStates.NewKid]);
+  }
+
+  public navigateToPresencesSummary(kidId: number, month: number, year: number): void {
+    this.router.navigate([States.Home, HomeStates.Presences, kidId, month, year]);
   }
 }

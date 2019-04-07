@@ -1,0 +1,71 @@
+<div class="fab-container">
+  <button mat-fab class="fab-toggler" color="primary" (click)="exportToPDF(grid)" matTooltip="Salva"
+    [matTooltipPosition]="'left'">
+    <mat-icon>picture_as_pdf</mat-icon>
+  </button>
+</div>
+
+<div class="container">
+  <h1 class="text-center">Riepilogo presenze</h1>
+  <div class="text-center mb-3" id="presenzeData">
+    <kendo-datepicker [format]="'MMMM yyyy'" [value]="summaryDate" (valueChange)="onChange($event)">
+    </kendo-datepicker>
+  </div>
+
+  <kendo-grid #grid="kendoGrid" *ngIf="gridView && settings" [data]="gridView">
+    <kendo-grid-column-group title="{{ getGridTitle()}}" [locked]="false">
+      <kendo-grid-column title="Giorno">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <span>{{ dataItem?.date | date }}</span>
+        </ng-template>
+      </kendo-grid-column>
+      <kendo-grid-column title="Entrata Mattina">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <span [hidden]="!dataItem.morningEntry">{{ dataItem.morningEntry | date:'shortTime' }}</span>
+        </ng-template>
+      </kendo-grid-column>
+      <kendo-grid-column title="Uscita Mattina">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <span [hidden]="!dataItem.morningExit">{{ dataItem.morningExit | date:'shortTime' }}</span>
+        </ng-template>
+      </kendo-grid-column>
+      <kendo-grid-column title="Entrata Pomeriggio">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <span [hidden]="!dataItem.eveningEntry">{{ dataItem.eveningEntry | date:'shortTime' }}</span>
+        </ng-template>
+      </kendo-grid-column>
+      <kendo-grid-column title="Uscita Pomeriggio">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <span [hidden]="!dataItem.eveningExit">{{ dataItem.eveningExit | date:'shortTime' }}</span>
+        </ng-template>
+      </kendo-grid-column>
+      <kendo-grid-column title="Ore">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          {{ dailyHoursTotal(dataItem) }}
+        </ng-template>
+        <ng-template kendoGridFooterTemplate let-column let-columnIndex="columnIndex">
+          {{ totalHours() }}
+        </ng-template>
+      </kendo-grid-column>
+      <kendo-grid-column title="Importo" [hidden]="isPrintingPdf">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          {{ dailyAmount(dataItem) | currency: 'EUR'}}
+        </ng-template>
+        <ng-template kendoGridFooterTemplate let-column let-columnIndex="columnIndex">
+          {{ totalAmount() | currency: 'EUR' }}
+        </ng-template>
+      </kendo-grid-column>
+    </kendo-grid-column-group>
+    <kendo-grid-pdf fileName="{{ getPdfName() }}" [allPages]="true" paperSize="A4" [repeatHeaders]="true"
+      [landscape]="true">
+      <kendo-grid-pdf-margin top="2cm" left="1cm" right="1cm" bottom="2cm"></kendo-grid-pdf-margin>
+      <ng-template kendoGridPDFTemplate let-pageNum="pageNum" let-totalPages="totalPages">
+        <div class="page-template">
+          <div class="header">
+            {{ getGridTitle()}}
+          </div>
+        </div>
+      </ng-template>
+    </kendo-grid-pdf>
+  </kendo-grid>
+</div>

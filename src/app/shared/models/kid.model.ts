@@ -9,6 +9,7 @@ export class Kid {
   from: Date;
   to: Date;
   contractType: ContractType;
+  contractValue: number;
   notes: string;
   subscription: number;
   subscriptionPaid: boolean;

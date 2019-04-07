@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 
 import { SettingsService } from 'app/shared/services/settings.service';
@@ -38,5 +38,4 @@ export class SettingsComponent extends BaseComponent implements OnInit {
       err => this.addErrorNotification(err.message, 'OK')
     );
   }
-
 }

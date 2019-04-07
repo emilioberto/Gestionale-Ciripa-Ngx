@@ -2,8 +2,32 @@
   width: 90%;
   margin: auto;
   padding: 20px;
+  text-align: center;
 
   kendo-timepicker {
     max-width: 100%;
   }
+}
+
+.hidden-field {
+  display: none;
+}
+
+// KENDO PDF
+.page-template {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.page-template .header {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  right: 30px;
+  border-bottom: 1px solid #888;
+  color: black;
+  text-align: center;
 }

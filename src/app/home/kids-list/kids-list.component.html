@@ -10,12 +10,12 @@
   <div class="row list-options">
     <div class="options-row">
       <div class="option">
-        <input type="radio" name="listOptions" id="genitori" class="k-radio" [checked]="hiddenKid && !hiddenParent">
-        <label class="k-radio-label" for="genitori" (click)="hideBambinoColumn()">Genitori</label>
+        <input type="radio" name="listOptions" id="parents" class="k-radio" [checked]="hiddenKid && !hiddenParent">
+        <label class="k-radio-label" for="parents" (click)="hideBambinoColumn()">Genitori</label>
       </div>
       <div class="option">
-        <input type="radio" name="listOptions" id="bambini" class="k-radio" [checked]="!hiddenKid && hiddenParent">
-        <label class="k-radio-label" for="bambini" (click)="hideGenitoreColumn()">Bambini</label>
+        <input type="radio" name="listOptions" id="kids" class="k-radio" [checked]="!hiddenKid && hiddenParent">
+        <label class="k-radio-label" for="kids" (click)="hideGenitoreColumn()">Bambini</label>
       </div>
       <div class="option">
         <input type="radio" name="listOptions" id="tutti" class="k-radio" [checked]="!hiddenKid && !hiddenParent">
@@ -31,9 +31,9 @@
       pagerNextPage="Successiva">
     </kendo-grid-messages>
     <kendo-grid-column-group title="Genitore" [locked]="false" [hidden]="hiddenParent && !hiddenKid">
-      <kendo-grid-column field="datiFatturazione.genitoreNome" title="Nome">
+      <kendo-grid-column field="parentFirstName" title="Nome">
       </kendo-grid-column>
-      <kendo-grid-column field="datiFatturazione.genitoreCognome" title="Cognome">
+      <kendo-grid-column field="parentLastName" title="Cognome">
       </kendo-grid-column>
     </kendo-grid-column-group>
     <kendo-grid-column-group title="Bambino" [locked]="false" [hidden]="!hiddenParent && hiddenKid">

@@ -8,6 +8,7 @@ import { SettingsComponent } from 'app/home/settings/settings.component';
 import { KidsListComponent } from 'app/home/kids-list/kids-list.component';
 import { AttendanceComponent } from 'app/home/attendance/attendance.component';
 import { KidComponent } from 'app/home/kid/kid.component';
+import { PresencesComponent } from 'app/home/presences/presences.component';
 
 const routes: Routes = [
   {
@@ -20,7 +21,8 @@ const routes: Routes = [
       { path: HomeStates.Kid, component: KidComponent },
       { path: HomeStates.NewKid, component: KidComponent },
       { path: HomeStates.Attendance, component: AttendanceComponent },
-      { path: HomeStates.Settings, component: SettingsComponent }
+      { path: HomeStates.Settings, component: SettingsComponent },
+      { path: HomeStates.PresencesByKidMonthYear, component: PresencesComponent }
     ]
   },
 ];

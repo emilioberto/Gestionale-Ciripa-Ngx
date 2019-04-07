@@ -85,9 +85,9 @@ export class KidsListComponent extends BaseComponent implements OnInit {
     return this.navigationService.navigateToKid(id);
   }
 
-  public navigateToPresences(id: number): string {
+  public navigateToPresences(id: number): void {
     const today = new Date();
-    return `/presenze/${id}/${today.getFullYear()}/${today.getMonth()}`;
+    this.navigationService.navigateToPresencesSummary(id, today.getMonth(), today.getFullYear());
   }
 
   public restoreColumns(): void {

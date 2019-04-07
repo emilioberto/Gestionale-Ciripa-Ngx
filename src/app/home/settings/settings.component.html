@@ -6,6 +6,6 @@
 
 <div class="settings-container">
   <kendo-textbox-container floatingLabel="Tariffa oraria">
-    <input kendoTextBox [(ngModel)]="settings.hourCost">
+    <kendo-numerictextbox [(ngModel)]="settings.hourCost" [format]="'c2'" [min]="0"></kendo-numerictextbox>
   </kendo-textbox-container>
 </div>

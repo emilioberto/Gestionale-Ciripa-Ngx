@@ -1,5 +1,12 @@
+import { Kid } from 'app/shared/models/kid.model';
+
 export class Presence {
-  date: Date;
+  id: number;
+  date: string;
+  month: number;
+  year: number;
+  kidId: number;
+  kid: Kid;
   morningEntry: Date;
   morningExit: Date;
   eveningEntry: Date;

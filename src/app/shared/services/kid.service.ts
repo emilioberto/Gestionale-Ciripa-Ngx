@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 
 import { Kid } from 'app/shared/models/kid.model';
 import { environment } from 'environments/environment';
-import { Presence } from 'app/shared/models/presence.model';
 
 @Injectable()
 export class KidService {
@@ -31,7 +30,7 @@ export class KidService {
     return this.http.delete(`${environment.baseUrl}/kid/${id}`);
   }
 
-  public getPresencesByDate(date: string): Observable<Presence[]> {
-    return this.http.get<Presence[]>(`${environment.baseUrl}/presences/${date}`);
+  public getPresenceSummaryByKidId(kidId: number, month: number, year: number): Observable<Kid> {
+    return this.http.get<Kid>(`${environment.baseUrl}/kid/presences-summary/${kidId}/${month}/${year}`);
   }
 }

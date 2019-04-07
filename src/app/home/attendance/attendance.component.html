@@ -1,15 +1,23 @@
+<div class="fab-container">
+  <button mat-fab class="fab-toggler" color="primary" (click)="save()" matTooltip="Salva" [matTooltipPosition]="'left'">
+    <mat-icon>check</mat-icon>
+  </button>
+</div>
+
 <div class="container">
   <h1 class="text-center">Appello</h1>
 
-  <form [formGroup]="editForm">
-    <div class="row">
-      <div class="form-group col-4 offset-4" id="attendanceDate">
-        <kendo-datepicker formControlName="date" class="form-control" id="date" (valueChange)="onChange($event)">
-        </kendo-datepicker>
-      </div>
-    </div>
+  <button mat-raised-button color="primary" (click)="exportToPDF(grid)">Stampa appello</button>
 
-    <kendo-grid [data]="gridView" formArrayName="presencesList">
+  <div class="row">
+    <div class="form-group col-4 offset-4" id="attendanceDate">
+      <kendo-datepicker [value]="today" class="form-control" id="date" (valueChange)="onChange($event)">
+      </kendo-datepicker>
+    </div>
+  </div>
+
+  <form [formGroup]="editForm">
+    <kendo-grid #grid="kendoGrid" [data]="gridView" formArrayName="presencesList">
       <!-- Id -->
       <kendo-grid-column title="Id" [hidden]="true">
         <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
@@ -38,14 +46,15 @@
         <kendo-grid-column title="Entrata">
           <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
             <kendo-timepicker [formControl]="morningEntryFormControl(rowIndex)"
-              [ngClass]="{'error': morningEntryFormControl(rowIndex)?.errors}">
+              [ngClass]="{'error': morningEntryFormControl(rowIndex)?.errors, 'hidden-field': isPrintingPdf }">
             </kendo-timepicker>
           </ng-template>
         </kendo-grid-column>
         <kendo-grid-column title="Uscita">
           <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
             <kendo-timepicker [formControl]="morningExitFormControl(rowIndex)"
-              [ngClass]="{'error': morningExitFormControl(rowIndex)?.errors}"></kendo-timepicker>
+              [ngClass]="{'error': morningExitFormControl(rowIndex)?.errors, 'hidden-field': isPrintingPdf }">
+            </kendo-timepicker>
           </ng-template>
         </kendo-grid-column>
       </kendo-grid-column-group>
@@ -55,17 +64,30 @@
         <kendo-grid-column title="Entrata">
           <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
             <kendo-timepicker [formControl]="eveningEntryFormControl(rowIndex)"
-              [ngClass]="{'error': eveningEntryFormControl(rowIndex)?.errors}"></kendo-timepicker>
+              [ngClass]="{'error': eveningEntryFormControl(rowIndex)?.errors, 'hidden-field': isPrintingPdf }">
+            </kendo-timepicker>
           </ng-template>
         </kendo-grid-column>
         <kendo-grid-column title="Uscita">
           <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
             <kendo-timepicker [formControl]="eveningExitFormControl(rowIndex)"
-              [ngClass]="{'error': eveningExitFormControl(rowIndex)?.errors}"></kendo-timepicker>
+              [ngClass]="{'error': eveningExitFormControl(rowIndex)?.errors, 'hidden-field': isPrintingPdf }">
+            </kendo-timepicker>
           </ng-template>
         </kendo-grid-column>
       </kendo-grid-column-group>
 
+      <!-- PDF EXPORT  -->
+      <kendo-grid-pdf fileName="Appello{{ today | date:'shortDate' }}.pdf" [allPages]=" true" paperSize="A4">
+        <kendo-grid-pdf-margin top="3cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
+        <ng-template kendoGridPDFTemplate>
+          <div class="page-template">
+            <div class="header">
+              <h3>Appello {{ today | date:'shortDate' }}</h3>
+            </div>
+          </div>
+        </ng-template>
+      </kendo-grid-pdf>
     </kendo-grid>
   </form>
 </div>

@@ -1,14 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
 import { takeWhile, take } from 'rxjs/operators';
-import { GridDataResult } from '@progress/kendo-angular-grid';
+import { GridDataResult, GridComponent } from '@progress/kendo-angular-grid';
 import * as moment from 'moment';
 
-import { KidService } from 'app/shared/services/kid.service';
 import { BaseComponent } from 'app/shared/components/base.component';
 import { AttendanceService } from 'app/shared/services/attendance.service';
 import { requiredIfSibling, isValidTime } from 'app/shared/validators/CustomValidators';
@@ -17,10 +15,14 @@ import { Presence } from 'app/shared/models/presence.model';
 @Component({
   selector: 'app-attendance',
   templateUrl: './attendance.component.html',
-  styleUrls: ['./attendance.component.scss']
+  styleUrls: ['./attendance.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class AttendanceComponent extends BaseComponent implements OnInit, OnDestroy {
 
+  private date = new Date();
+  public isPrintingPdf = false;
+  public today = new Date();
   public presencesList: Presence[];
   public gridView: GridDataResult;
   public editForm: FormGroup;
@@ -28,10 +30,7 @@ export class AttendanceComponent extends BaseComponent implements OnInit, OnDest
   public attendanceDate: string;
 
   constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private kidService: KidService,
-    private service: AttendanceService,
+    private attendanceService: AttendanceService,
     private fb: FormBuilder,
     public snackBar: MatSnackBar
   ) {
@@ -41,17 +40,7 @@ export class AttendanceComponent extends BaseComponent implements OnInit, OnDest
   ngOnInit() {
     this.attendanceDate = moment().locale('it').format('YYYY-MM-DD');
     this.generateForm();
-    this.kidService.getPresencesByDate(this.attendanceDate)
-      .pipe(take(1))
-      .subscribe(
-        res => {
-          this.presencesList = res;
-          this.loadGridData();
-        },
-        err => this.addErrorNotification(err.message, 'OK')
-      );
-
-    this.setDataOnForm();
+    this.getPresencesList();
     this.editForm.valueChanges
       .pipe(takeWhile(() => this.isAlive))
       .subscribe(_ => this.applyOnAllControls(this.editForm, c => c.updateValueAndValidity({ emitEvent: false })));
@@ -62,7 +51,7 @@ export class AttendanceComponent extends BaseComponent implements OnInit, OnDest
 
   private setDataOnForm(): void {
     if (this.presencesList) {
-      this.editForm.patchValue(this.presencesList);
+      this.presencesListFormArray.patchValue(this.presencesList);
     }
   }
 
@@ -107,8 +96,6 @@ export class AttendanceComponent extends BaseComponent implements OnInit, OnDest
 
   private generateForm(): void {
     this.editForm = this.fb.group({
-      id: 0,
-      date: new Date(this.attendanceDate),
       presencesList: this.fb.array([])
     });
   }
@@ -116,7 +103,11 @@ export class AttendanceComponent extends BaseComponent implements OnInit, OnDest
   private generatePresenceFormGroup(): FormGroup {
     return this.fb.group({
       id: 0,
-      bambinoId: 0,
+      kidId: 0,
+      kid: null,
+      date: this.attendanceDate,
+      month: this.date.getMonth(),
+      year: this.date.getFullYear(),
       morningEntry: [null, requiredIfSibling('uscitaMattina')],
       morningExit: [null, Validators.compose([requiredIfSibling('morningEntry'), isValidTime('morningEntry')])],
       eveningEntry: [null, Validators.compose([requiredIfSibling('eveningExit'), isValidTime('morningExit')])],
@@ -136,7 +127,22 @@ export class AttendanceComponent extends BaseComponent implements OnInit, OnDest
   }
 
   public onChange(value: Date): void {
-    // this.router.navigate(['appello'], { queryParams: { data: value.toISOString() } });
+    this.date = value;
+    this.attendanceDate = moment(value).locale('it').format('YYYY-MM-DD');
+    this.getPresencesList();
+  }
+
+  private getPresencesList() {
+    this.attendanceService.getPresencesByDate(this.attendanceDate)
+      .pipe(take(1))
+      .subscribe(
+        res => {
+          this.presencesList = res;
+          this.loadGridData();
+          this.setDataOnForm();
+        },
+        err => this.addErrorNotification(err.message, 'OK')
+      );
   }
 
   private getData(): any {
@@ -144,39 +150,36 @@ export class AttendanceComponent extends BaseComponent implements OnInit, OnDest
   }
 
   private save(): void {
-    // this.validateAllFormFields(this.editForm);
-    // this.applyOnAllControls(this.editForm, c => c.updateValueAndValidity({ emitEvent: false }));
-    // this.applyOnAllControls(this.editForm, c => {
-    //   c.markAsTouched();
-    //   c.updateValueAndValidity({ emitEvent: false });
-    // });
-    // if (this.editForm.valid) {
-    //   const entity = this.getData();
-    //   this.service.saveAttendance(entity)
-    //     .pipe(
-    //       take(1)
-    //     )
-    //     .subscribe(res => {
-    //       // this.onChange(this.attendanceDate);
-    //       this.addSuccessNotification(`Salvataggio effettuato`, `Ok`);
-    //     });
-    // } else {
-    //   this.addErrorNotification('Attenzione, sono presenti orari non validi e/o mancanti!', 'Ok');
-    // }
-  }
-
-  private delete(): void {
-    // const entity = this.getData();
-    // this.service.deleteAttendance(entity.id)
-    //   .pipe(
-    //     take(1)
-    //   )
-    //   .subscribe(res => {
-    //     this.addSuccessNotification(`Eliminazione effettuata`, `Ok`);
-    //   });
+    this.validateAllFormFields(this.editForm);
+    this.applyOnAllControls(this.editForm, c => c.updateValueAndValidity({ emitEvent: false }));
+    this.applyOnAllControls(this.editForm, c => {
+      c.markAsTouched();
+      c.updateValueAndValidity({ emitEvent: false });
+    });
+    if (this.editForm.valid) {
+      const attendance = this.getData();
+      this.attendanceService.saveAttendance(attendance)
+        .pipe(
+          take(1)
+        )
+        .subscribe(
+          res => this.addSuccessNotification(`Salvataggio effettuato`, `Ok`),
+          err => this.addErrorNotification('Salvataggio fallito', 'Ok')
+        );
+    } else {
+      this.addErrorNotification('Attenzione, sono presenti orari non validi e/o mancanti!', 'Ok');
+    }
   }
 
   private restore(): void {
     this.setDataOnForm();
+  }
+
+  public exportToPDF(grid: GridComponent): void {
+    this.isPrintingPdf = true;
+    setTimeout(() => {
+      grid.saveAsPDF();
+      this.isPrintingPdf = false;
+    }, 400);
   }
 }

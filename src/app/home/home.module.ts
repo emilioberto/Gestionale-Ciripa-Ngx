@@ -10,9 +10,18 @@ import { KidsListComponent } from './kids-list/kids-list.component';
 import { AttendanceComponent } from './attendance/attendance.component';
 import { KidComponent } from './kid/kid.component';
 import { KendoModule } from 'app/kendo/kendo.module';
+import { PresencesComponent } from 'app/home/presences/presences.component';
 
 @NgModule({
-  declarations: [DashboardComponent, HomeComponent, SettingsComponent, KidsListComponent, AttendanceComponent, KidComponent],
+  declarations: [
+    DashboardComponent,
+    HomeComponent,
+    SettingsComponent,
+    KidsListComponent,
+    AttendanceComponent,
+    KidComponent,
+    PresencesComponent
+  ],
   imports: [
     CommonModule,
     HomeRoutingModule,

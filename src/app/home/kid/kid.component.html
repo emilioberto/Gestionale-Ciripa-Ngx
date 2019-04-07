@@ -48,9 +48,9 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-4">
+      <div class="col-3">
         <kendo-textbox-container floatingLabel="Tipo contratto">
-          <kendo-dropdownlist formControlName="contractType" id="contractType" [data]="contractTypeList"
+          <kendo-dropdownlist #contractType formControlName="contractType" id="contractType" [data]="contractTypeList"
             textField="text" valueField="value" valuePrimitive="true">
           </kendo-dropdownlist>
         </kendo-textbox-container>
@@ -58,12 +58,18 @@
           *ngIf="getFormControlByName('contractType').errors && getFormControlByName('contractType').touched">
           Obbligatorio</p>
       </div>
-      <div class="col-4">
+      <div *ngIf="contractType.value === 0" class="col-3">
+        <kendo-textbox-container floatingLabel="Valore contratto">
+          <kendo-numerictextbox formControlName="contractValue" id="contractValue" [min]="0" [format]="'c2'">
+          </kendo-numerictextbox>
+        </kendo-textbox-container>
+      </div>
+      <div class="col-3">
         <kendo-textbox-container floatingLabel="Cliente dal">
           <kendo-datepicker formControlName="from" id="from"></kendo-datepicker>
         </kendo-textbox-container>
       </div>
-      <div class="col-4">
+      <div class="col-3">
         <kendo-textbox-container floatingLabel="Cliente al">
           <kendo-datepicker formControlName="to" id="to"></kendo-datepicker>
         </kendo-textbox-container>
