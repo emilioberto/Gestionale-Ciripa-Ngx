@@ -136,4 +136,8 @@ body {
 
 .pointer {
   cursor: pointer;
+
+  &:hover {
+    color: map_get($ciripa-primary, 400);
+  }
 }

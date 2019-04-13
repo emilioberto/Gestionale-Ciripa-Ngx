@@ -66,7 +66,7 @@ export class KidComponent extends BaseComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       fiscalCode: '',
-      birthDate: null,
+      birthDate: [null, Validators.required],
       from: null,
       to: null,
       contractType: ['', Validators.required],

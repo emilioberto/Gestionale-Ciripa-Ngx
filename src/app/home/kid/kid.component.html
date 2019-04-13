@@ -45,6 +45,8 @@
         <kendo-textbox-container floatingLabel="Data di nascita">
           <kendo-datepicker formControlName="birthDate" id="birthDate"></kendo-datepicker>
         </kendo-textbox-container>
+        <p class="errorMessage"
+          *ngIf="getFormControlByName('birthDate').errors && getFormControlByName('birthDate').touched">Obbligatorio</p>
       </div>
     </div>
     <div class="row">
