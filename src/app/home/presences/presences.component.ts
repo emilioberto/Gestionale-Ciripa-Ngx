@@ -51,6 +51,9 @@ export class PresencesComponent extends BaseComponent implements OnInit {
       .pipe(take(1))
       .subscribe(settings => {
         this.settings = settings;
+        if (!this.settings) {
+          this.addErrorNotification('Attenzione, inserire la tariffa oraria nelle impostazioni.', 'OK');
+        }
       });
 
     this.activatedRoute.params.subscribe(params => {
