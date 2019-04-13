@@ -5,18 +5,17 @@
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+@import "_material-theme";
+
+$primary: map_get($ciripa-primary, 400);
 @import "~@progress/kendo-theme-material/scss/all.scss";
 
 html,
 body {
   height: 100%;
   width: 100%;
-  background: #fafafa;
+  background-color: map_get($ciripa-background, 100);
   font-family: Roboto, sans-serif;
-
-  // button:focus {
-  //   outline: none !important;
-  // }
 
   .errorMessage {
     color: red;
@@ -26,7 +25,6 @@ body {
     border-color: red;
   }
   kendo-timepicker.error {
-    // background-color: rgba(255, 0, 0, 0.2);
     color: red;
     .k-autocomplete,
     .k-dateinput-wrap,
@@ -70,7 +68,7 @@ body {
   }
 
   .mat-snack-bar-container.success-snack-bar {
-    background-color: #48b04b;
+    background-color: #41b3a3;
     color: white;
     font-weight: 400;
 
@@ -134,4 +132,8 @@ body {
 .fab-toggler {
   float: right;
   z-index: 100;
+}
+
+.pointer {
+  cursor: pointer;
 }

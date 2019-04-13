@@ -55,14 +55,14 @@
     <kendo-grid-column field="quotaIscrizionePagata" title="Iscrizione">
       <ng-template kendoGridCellTemplate let-dataItem>
         <div class="text-center">
-          <mat-icon class="pagato" [hidden]="!dataItem.quotaIscrizionePagata">check</mat-icon>
-          <mat-icon class="non-pagato" [hidden]="dataItem.quotaIscrizionePagata">close</mat-icon>
+          <mat-icon class="pagato" [hidden]="!dataItem.subscriptionPaid">check</mat-icon>
+          <mat-icon class="non-pagato" [hidden]="dataItem.subscriptionPaid">close</mat-icon>
         </div>
       </ng-template>
     </kendo-grid-column>
     <kendo-grid-column field="id" title="Dettagli">
       <ng-template kendoGridCellTemplate let-dataItem>
-        <div class="text-center">
+        <div class="text-center pointer">
           <a (click)="navigateToKid(dataItem.id)">
             <mat-icon>edit</mat-icon>
           </a>
@@ -71,7 +71,7 @@
     </kendo-grid-column>
     <kendo-grid-column field="id" title="Presenze">
       <ng-template kendoGridCellTemplate let-dataItem>
-        <div class="text-center">
+        <div class="text-center pointer">
           <a (click)="navigateToPresences(dataItem.id)">
             <mat-icon>event_note</mat-icon>
           </a>

@@ -1,0 +1,36 @@
+@import "_ciripa-palette";
+@import "~@angular/material/theming";
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define colors
+$ciripa-app-primary: mat-palette($ciripa-primary);
+$ciripa-app-accent: mat-palette($ciripa-accent, 500, 900, A100);
+$ciripa-app-warn: mat-palette($mat-red);
+// Define theme
+$ciripa-app-theme: mat-light-theme($ciripa-app-primary, $ciripa-app-accent, $ciripa-app-warn);
+// Background color
+$custom-background-color: map_get($ciripa-background, 100);
+$background: map-get($ciripa-app-theme, background);
+$background: map_merge(
+  $background,
+  (
+    background: $custom-background-color
+  )
+);
+$ciripa-app-theme: map_merge(
+  $ciripa-app-theme,
+  (
+    background: $background
+  )
+);
+
+@include angular-material-theme($ciripa-app-theme);
+
+.mat-drawer {
+  background-color: map_get($ciripa-primary, 200);
+}
