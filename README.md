@@ -2,7 +2,7 @@
 
 Semplice gestionale per l' asilo nido.
 
-### Angular 7 + Kendo UI
+### Angular 7 + Angular Material + Kendo UI 
 
 Permette di:
 - registrare le anagrafiche dei bambini/genitori
