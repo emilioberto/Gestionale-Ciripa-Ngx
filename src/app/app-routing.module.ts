@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { States } from 'app/core/services/navigation.service';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', redirectTo: States.Login, pathMatch: 'full' },
   { path: States.Home, loadChildren: 'app/home/home.module#HomeModule' },
   { path: States.Login, loadChildren: 'app/login/login.module#LoginModule' },
@@ -15,4 +15,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

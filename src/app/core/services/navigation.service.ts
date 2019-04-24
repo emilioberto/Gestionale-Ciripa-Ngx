@@ -25,35 +25,35 @@ export class NavigationService {
     private router: Router
   ) { }
 
-  public navigateToHome(): void {
-    this.router.navigate([States.Home]);
+  public navigateToHome(): Promise<boolean> {
+    return this.router.navigate([States.Home]);
   }
 
-  public navigateToKidsList(): void {
-    this.router.navigate([States.Home, HomeStates.KidsList]);
+  public navigateToKidsList(): Promise<boolean> {
+    return this.router.navigate([States.Home, HomeStates.KidsList]);
   }
 
-  public navigateToAttendance(): void {
-    this.router.navigate([States.Home, HomeStates.Attendance]);
+  public navigateToAttendance(): Promise<boolean> {
+    return this.router.navigate([States.Home, HomeStates.Attendance]);
   }
 
-  public navigateToSettings(): void {
-    this.router.navigate([States.Home, HomeStates.Settings]);
+  public navigateToSettings(): Promise<boolean> {
+    return this.router.navigate([States.Home, HomeStates.Settings]);
   }
 
-  public navigateToKid(kidId: number): void {
-    this.router.navigate([States.Home, HomeStates.NewKid, kidId]);
+  public navigateToKid(kidId: number): Promise<boolean> {
+    return this.router.navigate([States.Home, HomeStates.NewKid, kidId]);
   }
 
-  public navigateToNewKid(): void {
-    this.router.navigate([States.Home, HomeStates.NewKid]);
+  public navigateToNewKid(): Promise<boolean> {
+    return this.router.navigate([States.Home, HomeStates.NewKid]);
   }
 
-  public navigateToPresences(): void {
-    this.router.navigate([States.Home, HomeStates.Presences]);
+  public navigateToPresences(): Promise<boolean> {
+    return this.router.navigate([States.Home, HomeStates.Presences]);
   }
 
-  public navigateToPresencesSummary(kidId: number, month: number, year: number): void {
-    this.router.navigate([States.Home, HomeStates.Presences, kidId, month, year]);
+  public navigateToPresencesSummary(kidId: number, month: number, year: number): Promise<boolean> {
+    return this.router.navigate([States.Home, HomeStates.Presences, kidId, month, year]);
   }
 }

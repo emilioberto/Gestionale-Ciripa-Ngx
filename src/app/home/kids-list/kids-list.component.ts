@@ -81,7 +81,7 @@ export class KidsListComponent extends BaseComponent implements OnInit {
     return contractType === ContractType.Contratto ? 'Contratto' : 'Ore';
   }
 
-  public navigateToKid(id: number): void {
+  public navigateToKid(id: number): Promise<boolean> {
     return this.navigationService.navigateToKid(id);
   }
 
