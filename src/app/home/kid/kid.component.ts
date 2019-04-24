@@ -121,7 +121,7 @@ export class KidComponent extends BaseComponent implements OnInit {
     return kid;
   }
 
-  private save(): void {
+  public save(): void {
     this.submitted = true;
     this.validateAllFormFields(this.editForm);
     this.applyOnAllControls(this.editForm, c => c.markAsTouched());
