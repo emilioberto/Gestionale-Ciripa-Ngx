@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { take } from 'rxjs/operators';
@@ -9,6 +9,7 @@ import { BaseComponent } from 'app/shared/components/base.component';
 import { ContractType, PaymentMethod, Kid } from 'app/shared/models/kid.model';
 import { NavigationService } from 'app/core/services/navigation.service';
 import { KidService } from 'app/shared/services/kid.service';
+import { ConfirmDeleteDialogComponent } from 'app/shared/components/confirm-delete-dialog/confirm-delete-dialog.component';
 
 @Component({
   selector: 'app-kid',
@@ -29,6 +30,7 @@ export class KidComponent extends BaseComponent implements OnInit {
     private service: KidService,
     private fb: FormBuilder,
     private navigationService: NavigationService,
+    private dialog: MatDialog,
     snackBar: MatSnackBar
   ) {
     super(snackBar);
@@ -171,5 +173,15 @@ export class KidComponent extends BaseComponent implements OnInit {
 
   private restore(): void {
     this.setDataOnForm();
+  }
+
+  public openConfirmDeleteDialog(): void {
+    const dialogRef = this.dialog.open(ConfirmDeleteDialogComponent, { width: '400px' });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.delete();
+      }
+    });
   }
 }

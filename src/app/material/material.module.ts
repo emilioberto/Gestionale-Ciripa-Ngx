@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import {
   MatInputModule, MatButtonModule, MatSidenavModule,
-  MatListModule, MatIconModule, MatSnackBarModule, MatTooltipModule
+  MatListModule, MatIconModule, MatSnackBarModule, MatTooltipModule, MatDialogModule
 } from '@angular/material';
 
 const MaterialModules = [
@@ -13,7 +13,8 @@ const MaterialModules = [
   MatListModule,
   MatIconModule,
   MatSnackBarModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatDialogModule
 ];
 
 @NgModule({
