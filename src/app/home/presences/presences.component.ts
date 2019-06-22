@@ -89,6 +89,7 @@ export class PresencesComponent extends BaseComponent implements OnInit {
     }
 
     totale = totale / 60;
+    totale = Math.ceil(totale * 2) / 2;
     return parseFloat(totale.toFixed(1));
   }
 
