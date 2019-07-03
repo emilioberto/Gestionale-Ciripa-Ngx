@@ -15,6 +15,6 @@ export class AuthenticationService {
   ) { }
 
   public login(credentials: { username: string, password: string }): Observable<any> {
-    return this.http.post<any>(`${environment.baseUrl}/authentication/token`, credentials);
+    return this.http.post<any>(`${environment.baseUrl}/auth/token`, credentials);
   }
 }

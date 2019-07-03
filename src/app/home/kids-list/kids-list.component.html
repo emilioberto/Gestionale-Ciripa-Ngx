@@ -41,15 +41,15 @@
       </kendo-grid-column>
       <kendo-grid-column field="lastName" title="Cognome">
       </kendo-grid-column>
-      <kendo-grid-column field="birthDate" title="Data nascita">
+      <kendo-grid-column field="birthdate" title="Data nascita">
         <ng-template kendoGridCellTemplate let-dataItem>
-          <span>{{dataItem.birthDate | date}}</span>
+          <span>{{dataItem.birthdate | date}}</span>
         </ng-template>
       </kendo-grid-column>
     </kendo-grid-column-group>
     <kendo-grid-column field="tipoContratto" title="Contratto">
       <ng-template kendoGridCellTemplate let-dataItem>
-        <span>{{getContractTypeDescription(dataItem.tipoContratto)}}</span>
+        <span>{{getContractTypeDescription(dataItem?.contractType)}}</span>
       </ng-template>
     </kendo-grid-column>
     <kendo-grid-column field="quotaIscrizionePagata" title="Iscrizione">

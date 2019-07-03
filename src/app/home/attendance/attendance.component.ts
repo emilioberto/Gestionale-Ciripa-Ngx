@@ -141,7 +141,7 @@ export class AttendanceComponent extends BaseComponent implements OnInit, OnDest
           this.loadGridData();
           this.setDataOnForm();
         },
-        err => this.addErrorNotification(err.message, 'OK')
+        err => this.addErrorNotification(err, 'OK')
       );
   }
 

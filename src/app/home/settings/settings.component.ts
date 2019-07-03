@@ -28,14 +28,14 @@ export class SettingsComponent extends BaseComponent implements OnInit {
           this.settings = settings;
         }
       },
-      err => this.addErrorNotification(err.message, 'OK')
+      err => this.addErrorNotification(err, 'OK')
     );
   }
 
   public save(): void {
     this.settingsService.upsertSettings(this.settings).subscribe(
       settings => this.addSuccessNotification(`Salvataggio effettuato`, `Ok`),
-      err => this.addErrorNotification(err.message, 'OK')
+      err => this.addErrorNotification(err, 'OK')
     );
   }
 }

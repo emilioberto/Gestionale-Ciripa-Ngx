@@ -54,7 +54,7 @@ export class KidsListComponent extends BaseComponent implements OnInit {
         this.loadGridData();
       },
       err => {
-        this.addErrorNotification(err.message, 'Ok');
+        this.addErrorNotification(err, 'Ok');
       }
     );
   }

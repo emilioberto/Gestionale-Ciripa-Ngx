@@ -23,7 +23,7 @@ describe('KidComponent', () => {
 
   const mockKid: Kid = <Kid>{
     address: 'Via roma 20',
-    birthDate: new Date(1992, 10, 26),
+    birthdate: new Date(1992, 10, 26),
     cap: 38010,
     city: 'Trento',
     contractType: ContractType.Contratto,
@@ -141,8 +141,8 @@ describe('KidComponent', () => {
     expect(firstName).toBe(mockKid.firstName);
     const lastName = component.editForm.get('lastName').value;
     expect(lastName).toBe(mockKid.lastName);
-    const birthDate: Date = component.editForm.get('birthDate').value;
-    expect(birthDate.getTime()).toBe(mockKid.birthDate.getTime());
+    const birthdate: Date = component.editForm.get('birthdate').value;
+    expect(birthdate.getTime()).toBe(mockKid.birthdate.getTime());
     const from: Date = component.editForm.get('from').value;
     if (from) {
       expect(from.getTime()).toBe(mockKid.from.getTime());

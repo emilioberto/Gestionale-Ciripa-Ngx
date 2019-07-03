@@ -18,8 +18,14 @@ export abstract class BaseComponent implements OnDestroy {
     this.snackBar.open(title || `Salvataggio effettuato`, `Ok`, config);
   }
 
-  protected addErrorNotification(title: string, action: string, config: any = { panelClass: 'error-snack-bar' }) {
-    this.snackBar.open(title || `Salvataggio effettuato`, `Ok`, config);
+  protected addErrorNotification(title: string | any, action: string, config: any = { panelClass: 'error-snack-bar' }) {
+    if (title && title.status && title.status === 401) {
+      this.snackBar.open('Non autorizzato!', `Ok`, config);
+    } else if (title && title.message) {
+      this.snackBar.open(title.message, `Ok`, config);
+    } else {
+      this.snackBar.open(title || `Salvataggio effettuato`, `Ok`, config);
+    }
   }
 
   protected validateAllFormFields(formGroup: FormGroup) {

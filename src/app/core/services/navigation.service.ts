@@ -25,6 +25,10 @@ export class NavigationService {
     private router: Router
   ) { }
 
+  public navigateToLogin(): Promise<boolean> {
+    return this.router.navigate([States.Login]);
+  }
+
   public navigateToHome(): Promise<boolean> {
     return this.router.navigate([States.Home]);
   }

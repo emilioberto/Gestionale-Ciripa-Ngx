@@ -55,7 +55,7 @@ export class KidComponent extends BaseComponent implements OnInit {
             this.setDataOnForm();
           },
           err => {
-            this.addErrorNotification(err.message, 'Ok');
+            this.addErrorNotification(err, 'Ok');
           }
         );
       }
@@ -68,7 +68,7 @@ export class KidComponent extends BaseComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       fiscalCode: '',
-      birthDate: [null, Validators.required],
+      birthdate: [null, Validators.required],
       from: null,
       to: null,
       contractType: ['', Validators.required],
@@ -93,7 +93,7 @@ export class KidComponent extends BaseComponent implements OnInit {
       const kid = Object.assign({}, this.kid);
       kid.from = kid.from ? new Date(kid.from) : null;
       kid.to = kid.to ? new Date(kid.to) : null;
-      kid.birthDate = kid.birthDate ? new Date(kid.birthDate) : null;
+      kid.birthdate = kid.birthdate ? new Date(kid.birthdate) : null;
 
       Object.keys(kid).forEach((key) => (kid[key] == null) && delete kid[key]);
 
@@ -146,7 +146,7 @@ export class KidComponent extends BaseComponent implements OnInit {
             this.addSuccessNotification(`Salvataggio effettuato`, `Ok`);
           },
           err => {
-            this.addErrorNotification(err.message, 'Ok');
+            this.addErrorNotification(err, 'Ok');
           }
         );
     } else {
@@ -166,7 +166,7 @@ export class KidComponent extends BaseComponent implements OnInit {
           this.navigationService.navigateToKidsList();
         },
         err => {
-          this.addErrorNotification(err.message, 'Ok');
+          this.addErrorNotification(err, 'Ok');
         }
       );
   }

@@ -5,7 +5,7 @@ export class Kid {
   firstName: string;
   lastName: string;
   fiscalCode: string;
-  birthDate: Date;
+  birthdate: Date;
   from: Date;
   to: Date;
   contractType: ContractType;

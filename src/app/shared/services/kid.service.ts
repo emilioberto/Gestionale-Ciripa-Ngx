@@ -19,7 +19,7 @@ export class KidService {
   }
 
   public getKidsList(): Observable<Array<Kid>> {
-    return this.http.get<Array<Kid>>(`${environment.baseUrl}/kid/list`);
+    return this.http.get<Array<Kid>>(`${environment.baseUrl}/kid`);
   }
 
   public upsertKid(kid: Kid): Observable<any> {
